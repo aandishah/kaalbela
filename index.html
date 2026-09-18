@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kaalbela</title>
+<meta name="description" content="Kaalbela: Extreme Events — a digital anthology on catastrophe, resilience, and the time of tomorrow.">
+<style>
+  :root{
+    --ink:#141110;
+    --paper:#88D7E6;
+    --paper-deep:#5fc2d4;
+    --yellow:#FFE500;
+    --magenta:#E44B92;
+    --pink:#FAABFE;
+    --blue:#004AAD;
+    --cyan:#5CE1E6;
+    --maroon:#7a0f00;
+    --white:#FFFFFF;
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--ink);
+    font-family:"DM Sans", "Helvetica Neue", Arial, sans-serif;
+    overflow-x:hidden;
+  }
+  img{max-width:100%;display:block;}
+
+  h1,h2,h3{margin:0;font-family:"Anton","Arial Narrow",sans-serif;text-transform:uppercase;font-weight:400;text-wrap:balance;}
+
+  .bn{font-family:"Noto Sans Bengali","Nirmala UI",sans-serif;}
+
+  a{color:inherit;text-decoration:none;}
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:fixed;
+    top:0; left:0; right:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:16px clamp(16px,4vw,48px);
+    padding-top:calc(16px + env(safe-area-inset-top,0px));
+    background:rgba(20,17,16,0.55);
+    backdrop-filter:blur(6px);
+    -webkit-backdrop-filter:blur(6px);
+    font-family:"DM Sans",sans-serif;
+    font-weight:700;
+    font-size:0.8rem;
+    letter-spacing:0.08em;
+    color:var(--white);
+  }
+  .nav .mark{
+    font-family:"Anton",sans-serif;
+    font-size:1rem;
+    letter-spacing:0.03em;
+    color:var(--yellow);
+  }
+  .nav .links{display:flex;gap:clamp(14px,3vw,32px);}
+  .nav .links a{opacity:0.85;transition:opacity .2s, color .2s;}
+  .nav .links a:hover{opacity:1;color:var(--cyan);}
+  @media (max-width:560px){
+    .nav .links{gap:12px;font-size:0.68rem;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    padding:120px clamp(20px,6vw,80px) 90px;
+    background:#20132b;
+    overflow:hidden;
+  }
+  .hero-bg{
+    position:absolute;
+    inset:0;
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    filter:saturate(1.05);
+  }
+  .hero-scrim{
+    position:absolute;inset:0;
+    background:linear-gradient(180deg, rgba(10,6,14,0.15) 0%, rgba(10,6,14,0.05) 45%, rgba(10,6,14,0.55) 100%);
+  }
+  .hero-inner{
+    position:relative;
+    z-index:2;
+    width:100%;
+    max-width:1180px;
+    margin:0 auto;
+  }
+  .hero-stack{
+    position:relative;
+    line-height:0.86;
+  }
+  .hero-stack .en1{
+    display:block;
+    font-size:clamp(3rem,10vw,7.2rem);
+    color:var(--yellow);
+    text-shadow:0 2px 22px rgba(0,0,0,0.35);
+  }
+  .hero-stack .bnword{
+    display:block;
+    font-size:clamp(3.4rem,12vw,8.6rem);
+    color:var(--pink);
+    opacity:0.92;
+    margin-top:0.06em;
+    line-height:0.8;
+  }
+  .hero-stack .en2{
+    display:block;
+    font-size:clamp(3rem,10vw,7.2rem);
+    color:var(--yellow);
+    margin-top:-0.62em;
+    text-shadow:0 2px 22px rgba(0,0,0,0.35);
+  }
+  .hero-taglines{
+    display:flex;
+    justify-content:space-between;
+    gap:24px;
+    margin-top:22px;
+    font-family:"DM Sans",sans-serif;
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:clamp(0.95rem,1.6vw,1.3rem);
+    letter-spacing:0.01em;
+  }
+  .hero-taglines .t1{color:var(--blue);}
+  .hero-taglines .t2{color:var(--cyan);text-align:right;}
+  .hero-cta-row{margin-top:34px;}
+  .pill{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:var(--yellow);
+    color:var(--maroon);
+    font-family:"DM Sans",sans-serif;
+    font-weight:700;
+    font-size:0.95rem;
+    letter-spacing:0.03em;
+    text-transform:uppercase;
+    padding:16px 30px;
+    border-radius:999px;
+    border:none;
+    cursor:pointer;
+    transition:transform .18s ease, box-shadow .18s ease, background .18s ease;
+    box-shadow:0 6px 0 rgba(0,0,0,0.18);
+  }
+  .pill:hover{transform:translateY(-2px);background:#fff05c;}
+  .pill:active{transform:translateY(1px);box-shadow:0 3px 0 rgba(0,0,0,0.18);}
+  .pill.outline{
+    background:var(--yellow);
+    color:var(--maroon);
+    border:none;
+    box-shadow:0 6px 0 rgba(0,0,0,0.18);
+  }
+  .pill.outline:hover{background:#fff05c;}
+
+  .scrolldown{
+    position:absolute;
+    left:clamp(20px,6vw,80px);
+    bottom:28px;
+    z-index:2;
+    color:rgba(255,255,255,0.75);
+    font-size:0.72rem;
+    font-weight:700;
+    letter-spacing:0.18em;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .scrolldown .line{width:32px;height:1px;background:currentColor;animation:pulse 2s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:.4;width:22px;}50%{opacity:1;width:38px;}}
+  @media (prefers-reduced-motion:reduce){ .scrolldown .line{animation:none;} }
+
+  /* ---------- land section ---------- */
+  .land{
+    background:var(--paper);
+    padding:110px clamp(20px,6vw,80px) 100px;
+    text-align:center;
+    position:relative;
+  }
+  .land-head{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:clamp(10px,4vw,56px);
+    margin-bottom:46px;
+  }
+  .land-head img{width:clamp(58px,9vw,120px);height:auto;filter:drop-shadow(0 8px 14px rgba(0,0,0,0.18));}
+  .land-head h2{
+    color:var(--magenta);
+    font-size:clamp(2.1rem,5.6vw,3.6rem);
+    line-height:1.02;
+  }
+  .filmstrip-frame{
+    background:var(--white);
+    border-radius:6px;
+    padding:clamp(10px,2vw,22px);
+    max-width:1180px;
+    margin:0 auto;
+    box-shadow:0 24px 50px -20px rgba(0,20,30,0.35);
+  }
+  .filmstrip{
+    display:grid;
+    grid-template-columns:repeat(6,1fr);
+    gap:clamp(4px,1vw,10px);
+  }
+  .filmstrip img{
+    width:100%;
+    height:clamp(180px,32vw,420px);
+    object-fit:cover;
+    border-radius:2px;
+  }
+  @media (max-width:720px){
+    .filmstrip{grid-template-columns:repeat(3,1fr);}
+    .filmstrip img{height:clamp(140px,40vw,220px);}
+    .filmstrip a:nth-child(n+4){display:none;}
+  }
+  .land-note{
+    margin-top:42px;
+    display:flex;
+    justify-content:center;
+  }
+  .land-note .pill{font-size:0.85rem;}
+
+  /* ---------- story section ---------- */
+  .story{
+    background:var(--paper-deep);
+    padding:120px clamp(20px,6vw,80px) 130px;
+  }
+  .story-grid{
+    max-width:1180px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1.05fr 1fr;
+    gap:clamp(30px,6vw,70px);
+    align-items:center;
+  }
+  .story-word{display:flex;justify-content:center;}
+  .story-word img{
+    width:100%;
+    max-width:420px;
+  }
+  .story-word h2{
+    font-size:clamp(2.6rem,7vw,4.6rem);
+    line-height:0.94;
+  }
+  .story-word .s1{color:var(--yellow);display:block;}
+  .story-word .s2{color:var(--white);display:block;}
+  .story-body p{
+    color:var(--ink);
+    font-family:"DM Sans",sans-serif;
+    font-weight:700;
+    font-size:clamp(1.05rem,2vw,1.4rem);
+    line-height:1.42;
+    text-transform:uppercase;
+    max-width:34ch;
+    margin:0 0 30px;
+  }
+  .story-links{display:flex;flex-direction:column;gap:16px;align-items:flex-start;}
+  .story-links .pill{width:100%;justify-content:center;text-align:center;}
+  @media (max-width:820px){
+    .story-grid{grid-template-columns:1fr;text-align:left;}
+    .story-body p{max-width:none;}
+  }
+
+  /* ---------- footer ---------- */
+  .foot{
+    background:var(--ink);
+    color:rgba(255,255,255,0.55);
+    padding:34px clamp(20px,6vw,80px);
+    display:flex;
+    justify-content:space-between;
+    gap:16px;
+    flex-wrap:wrap;
+    font-size:0.78rem;
+    letter-spacing:0.03em;
+  }
+  .foot .mark{color:var(--yellow);font-family:"Anton",sans-serif;letter-spacing:0.03em;}
+</style>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=DM+Sans:wght@400;500;700&family=Noto+Sans+Bengali:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="nav">
+  <span class="mark">KAALBELA</span>
+  <span class="links">
+    <a href="#hero">Anthology</a>
+    <a href="#land">Our Land</a>
+    <a href="#story">The Story</a>
+  </span>
+</nav>
+
+<section class="hero" id="hero">
+  <img class="hero-bg" src="images/hero.jpg" alt="">
+  <div class="hero-scrim"></div>
+  <div class="hero-inner">
+    <div class="hero-stack">
+      <span class="en1">KAALBELA:</span>
+      <span class="bnword bn">কালবেলা</span>
+      <span class="en2">EXTREME EVENTS</span>
+    </div>
+    <div class="hero-taglines">
+      <span class="t1">The time of<br>catastrophe,</span>
+      <span class="t2">the time of<br>tomorrow.</span>
+    </div>
+    <div class="hero-cta-row">
+      <a class="pill" href="https://climatefutures.art/kaalbela" target="_blank" rel="noopener">Explore the digital anthology</a>
+    </div>
+  </div>
+  <div class="scrolldown"><span class="line"></span> Scroll</div>
+</section>
+
+<section class="land" id="land">
+  <div class="land-head">
+    <img src="images/lotus.webp" alt="">
+    <h2>Our Land<br>Our Resilience</h2>
+    <img src="images/lotus.webp" alt="">
+  </div>
+  <div class="filmstrip-frame">
+    <div class="filmstrip">
+      <a href="#land"><img src="images/land-1.jpg" alt="Aerial illustration, dense settlement"></a>
+      <a href="#land"><img src="images/land-2.jpg" alt="Aerial illustration, river villages"></a>
+      <a href="#land"><img src="images/land-3.jpg" alt="Aerial illustration, forest paths"></a>
+      <a href="#land"><img src="images/land-4.jpg" alt="Aerial illustration, patchwork fields"></a>
+      <a href="#land"><img src="images/land-5.jpg" alt="Aerial illustration, coastline"></a>
+      <a href="#land"><img src="images/land-6.jpg" alt="Aerial illustration, market rows"></a>
+    </div>
+  </div>
+  <div class="land-note">
+    <span class="pill outline">Updates coming Sept 21</span>
+  </div>
+</section>
+
+<section class="story" id="story">
+  <div class="story-grid">
+    <div class="story-word">
+      <img src="images/story-lotus.webp" alt="The Story Behind Kaalbela">
+    </div>
+    <div class="story-copy">
+      <div class="story-body">
+        <p>The work on Kaalbela is the outcome of the work as part of Aandishah&rsquo;s work with Climate Futures Studio, as part of their third annual cohort of climate storytelling, 2075.</p>
+      </div>
+      <div class="story-links">
+        <a class="pill" href="https://aandishah.github.io/" target="_blank" rel="noopener">About Aandishah</a>
+        <a class="pill" href="https://climatefutures.art/volume-ii" target="_blank" rel="noopener">About Climate Futures Studio</a>
+        <a class="pill outline" href="https://climatefutures.art/volume-iii" target="_blank" rel="noopener">Explore work by other cohort members</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <span class="mark">KAALBELA</span>
+  <span>&copy; 2075 &middot; Climate Futures Studio &middot; Digital Anthology</span>
+</footer>
+
+</body>
+</html>
